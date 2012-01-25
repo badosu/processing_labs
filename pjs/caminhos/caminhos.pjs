@@ -1,0 +1,56 @@
+ArrayList caminhos;
+ArrayList novosCaminhos;
+float aleatoriedade;
+float curvatura;
+float fertilidade;
+int k;
+
+void setup(){
+  aleatoriedade = 0.2;
+  curvatura = 1.1;
+  fertilidade = 0.14; 
+  size(window.innerWidth, window.innerHeight);
+  frameRate(30);    
+  cria();
+}
+
+void draw(){
+  k = caminhos.size();
+  int i=0;
+  int j=0; 
+  for (i; i<k; i++){
+    Caminho c = (Caminho)caminhos.get(i);
+    c.desenhar();
+    c.atualizar();
+    if (c.morto()){
+      caminhos.remove(i);
+      i--;
+      k--;
+    }
+    else if (random(1)<fertilidade){
+      novosCaminhos.add(new Caminho(c.x,c.y)); 
+      j++; 
+    }
+  }
+  for (i=0;i<j; i++){
+    caminhos.add(novosCaminhos.get(i));
+  }
+  novosCaminhos.clear();
+  showFPS();
+}
+
+void cria(){
+  caminhos = new ArrayList();
+  novosCaminhos = new ArrayList();
+  background(255);
+  float altura = min(window.innerHeight,height);
+  caminhos.add(new Caminho(width/16,15*altura/16)); 
+}
+
+void mousePressed(){
+  cria();
+}
+
+void showFPS(){
+  document.getElementById("lblfps").innerHTML = "FPS: " + parseInt((frameRate)).toString() + "<br />Caminhos: " + k.toString();
+}

@@ -1,0 +1,4 @@
+size(window.innerWidth, window.innerHeight);
+fill(0,0,255,20);
+ellipse(50,50,20,20);
+ellipse(60,50,20,20);

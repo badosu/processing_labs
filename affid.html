@@ -1,0 +1,35 @@
+<p> This one just informs you the affId </p>
+
+<a href='javascript:function readCookie(name) {
+    name = name.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1");
+    var regex = new RegExp("(?:^|;)\\s?" + name + "=(.*?)(?:;|$)","i"),
+        match = document.cookie.match(regex);
+    return match && unescape(match[1]);
+}
+    var strC = readCookie("BetbooAffiliateCookie"),
+    groups;
+if (strC === null || (groups = strC.match(/AffId=(.*)&/)) === null)
+    alert("No affiliate cookie");
+else
+    alert("Affiliate Url: \n\n    "+groups[1]);
+'>Get AffId</a>
+
+<p> This one below also redirects to betboopartners </p>
+
+<a href='javascript:function readCookie(name) {
+    name = name.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1");
+    var regex = new RegExp("(?:^|;)\\s?" + name + "=(.*?)(?:;|$)","i"),
+        match = document.cookie.match(regex);
+    return match && unescape(match[1]);
+}
+    var strC = readCookie("BetbooAffiliateCookie"),
+    groups;
+if (strC === null || (groups = strC.match(/AffId=(.*)&/)) === null)
+    alert("No affiliate cookie");
+else
+{
+    var strUrl = "http://admin.betboopartners.com/link_analyser.php?MODE=xml&task=analyse&url=";
+    strUrl += groups[1];
+    alert("Affiliate Url: \n\n    "+groups[1] + "\n\nYou will be redirected to: \n\n    "+strUrl);
+    window.open(strUrl,"_self");
+}'>Get MyAffiliate</a>

@@ -1,0 +1,53 @@
+class Caminho
+{
+  float x, y, px, py;
+  float constancia;
+  float direcao;
+  color cor; 
+
+  public Caminho(float _x, float _y){
+    x=_x;
+    y=_y;
+    px=_x;
+    py=_y;
+    constancia = random(-PI,PI)/80;
+    direcao = random(TWO_PI); 
+    cor = color(20+random(110),20+random(110),20+random(110),140);
+  }
+  
+  void desenhar(){
+    stroke(cor);
+    line(px,py,x,y); 
+  }
+  
+  void atualizar(){
+    px=x;
+    py=y;
+    x+=cos(direcao);
+    y+=sin(direcao);   
+    constancia *= curvatura;
+    direcao += constancia+random(-aleatoriedade,aleatoriedade);
+  }
+
+  boolean morto(){
+    color co;
+    try{
+      co = get(round(x),round(y));
+    }
+    catch(err){
+      return true;
+    }
+    int cred = (co >> 16 & 0xFF);
+    int cgreen = (co >> 8 & 0xFF);
+    int cblue = (co & 0xFF);
+    if (( cred < 180 ) && ( cgreen < 180 ) && ( cblue < 180 )) {
+      return true;
+    }
+    float altura = min(window.innerHeight,height);
+    var obj = $('.corpo');
+    var p = obj.position();
+    float bordxi = p.left;
+    float bordxf = p.left + obj.width();
+    return ( x<0 || x>width || y<0 || y>altura ) || ( x>bordxi && x<bordxf && y>p.top );
+  }
+}

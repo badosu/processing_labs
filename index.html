@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <title>Teste PJS</title>
+    <meta name="title" content="Teste PJS">
+    <meta name="description" content="Página de testes com Canvas, ProcessingJs e jQuery de Amadeus Folego da Silva.">
+    <meta name="author" content="Amadeus Folego da Silva">
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine" />
+    <script src="js/initga.js">
+    </script>
+    <script src="js/processing.js">
+    </script>
+    <script src="http://ajax.microsoft.com/ajax/jQuery/jquery-1.4.2.min.js">
+    </script>
+    <script>
+      var restricao = true;
+      $(document).ready(function(){
+        $("#afundo").click(function(){
+          if ($('.corpo').is('.transparente')) {
+            $('.corpo').removeClass('transparente');
+            restricao = true;
+          }
+          else {
+            $('.corpo').addClass('transparente');
+            restricao = false;
+          }
+          return false;
+        });
+        $("#atoggle").click(function(){
+          $(".corpo").slideToggle("slow");
+          return false;
+        });
+      });
+    </script>
+    <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <!--[if lte IE 7]><script src="js/IE8.js"></script><![endif]-->
+    <!--[if lt IE 7]><link rel="stylesheet" href="css/ie6.css" /><![endif]-->
+  </head>
+  <body>
+    <section class="corpo">
+      <header>
+        <h1>Bem vindo à minha página de testes.</h1>
+        <h3>Nesta página estão alguns trabalhos, portados ou próprios, usando Canvas, ProcessingJS e jQuery.</h3>
+        <h3>A experiência muda de acordo com o browser. Por enquanto a página é melhor vista usando Opera ou Chrome. O Internet Explorer não suporta a tag Canvas.</h3>
+      </header>
+      <nav>
+        <ul id="links">
+          <h3>Links:</h3>
+          <li>
+            <h4><a href="http://processingjs.org">ProcessingJs</a> John Resig</h4>
+          </li>
+          <li>
+            <h4><a href="noise.html">Noisy</a></h4>
+          </li>
+          <li>
+            <h4><a href="advtree.html">Advanced Tree Generator</a></h4>
+          </li>
+          <li>
+            <h4><a href="caminhos.html">Caminhos</a></h4>
+          </li>
+          <li>
+            <h4><a href="coffeetest.html">Teste com coffeescript (pressione os botões do mouse)</a> <a href="js/coffeetest.coffee">source</a></h4>
+          </li>
+        </ul>
+        <a id="promotejs" href='https://developer.mozilla.org/en/JavaScript/Guide' title='JavaScript Tutorial'><img src='http://static.jsconf.us/promotejsv.gif' height='280' width='160' alt='JavaScript Tutorial'/></a>
+      </nav>
+      <article> 
+        <header><h2>Bolas</h2></header>
+        <h3>As bolas se aproximam da posição do mouse, clique para afastá-las. Clique com direito para criar novas bolas.</h3>
+      </article>
+      <footer>
+        <h4>Por favor, se for utilizar estes códigos para uso próprio referencie o autor original da aplicação e/ou a mim.</h4>
+        <h4>Contato: <a href="mailto:amadeusfolego@gmail.com">amadeusfolego@gmail.com</a><em>Curriculum Vitae:</em><a href="cv_pt_.html">HTML</a>, <a href="cv_pt_.pdf">PDF</a></h4>
+      </footer>
+    </section>
+    <section class="mostrador">
+      <label id="lblfps"></label>
+      <h4><a id="afundo" href="#">Fundo</a></h4>
+      <h4><a id="atoggle" href="#">Exibir/Esconder</a></h4>
+    </section>
+    <canvas id="fundo" data-processing-sources="pjs/bolas/bolas.pjs pjs/bolas/bola.pjs">
+    </canvas>
+  </body>
+</html>

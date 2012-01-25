@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="language" content="pt-br" />
+        <meta name="author" content="Amadeus Folego da Silva"/>
+        <meta name="description" content="Página de testes com Canvas, ProcessingJs e jQuery" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <link rel="stylesheet" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine" />
+        <script src="js/initga.js">
+        </script>
+        <script src="js/processing.js">
+        </script>
+        <script src="http://ajax.microsoft.com/ajax/jQuery/jquery-1.4.2.min.js">
+        </script>
+        <script>
+            $(document).ready(function(){
+                $("#atoggle").click(function(){
+                    $(".transparente").slideToggle("slow");
+                    return false;
+                });
+            });
+        </script>
+        <title>Teste PJS</title>
+    </head>
+    <body>
+        <div class="corpo transparente">
+            <h1>Advanced Tree Generator</h1>
+            <h2>Passe o mouse pela tela abaixo para alterar os parâmetros de geração. Os eixos x e y do mouse definem o ângulo do primeiro ramo, e o ângulo entre ramos, respetivamente. Rolar a roda do mouse para cima e para baixo aumenta ou diminui o número de ramificações.</h2>
+            <h3>Obs.: Não aumente muito o número de ramificações senão teu processador funde! JavaScript né ;)</h3>
+            <h4><a href="http://en.wikipedia.org/wiki/L-system">L-System</a> Aristid Lindenmayer</h4>
+            <h4><a href="http://openprocessing.org/visuals/?visualID=8941">Advanced Tree Generator</a> James Noeckel</h4>
+        </div>
+        <div class="mostrador">
+            <label id="lblfps">
+            </label>
+            <h4><a id="atoggle" href="#">Exibir/Esconder</a></h4>
+        </div>
+        <canvas id="fundo" data-processing-sources="pjs/advtree.pjs">
+        </canvas>
+    </body>
+</html>

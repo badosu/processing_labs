@@ -1,0 +1,116 @@
+class Ball {
+  float vx,vy;
+  float x,y;
+  color cor; 
+  float px, py; 
+  float bigness = 8;
+  float lifetime = 1400;
+  Ball() {
+    cor = color(100+random(100), 100+random(100), 100+random(100));
+    int r = ceil(0.01+random(5)); 
+    float altura = min(window.innerHeight,height);
+    switch(r)
+    {
+      case 1:
+      {
+        x = width/16;
+        y = 15*altura/16;
+        break; 
+      }
+      case 2:
+      {
+        x = width/16;
+        y = altura/16;
+        break; 
+      }
+      case 3:
+      {
+        x = width/8;
+        y = altura/16;
+        break; 
+      }
+      case 4:
+      {
+        x = 15*width/16;
+        y = altura/16;
+        break; 
+      }
+      case 5:
+      {
+        x = 15*width/16;
+        y = 15*altura/16;
+        break; 
+      }              
+    }   
+    py = y; 
+    px = x;  
+    vx = random(20)-10;
+    vy = random(20)-10;
+  }
+  void update(float friction) { 
+    float fk = dist(bodyPosX,bodyPosY,x,y); 
+    if(fk > 1){ 
+      float dx = bodyPosX-x;
+      float dy = bodyPosY-y;   
+      if (lmousePressed){
+        vx -= (dx/fk)/2;
+        vy -= (dy/fk)/2;
+      }
+      else {
+        vx += (dx/fk)/10;
+        vy += (dy/fk)/10;
+      }
+    }  
+    x += vx; 
+    y += vy;
+    vx /= friction;
+    vy /= friction;
+    float raio = bigness/2;
+    float altura = min(window.innerHeight,height);
+     
+    if(x < raio ) {
+      vx = -vx;
+    }
+    else if(x > width - raio) {
+      vx = -vx;
+    }
+    else if(restricao)    
+    { 
+      var obj = $('.corpo');
+      var p = obj.position();
+      float bordxf = p.left + obj.width() + raio;   
+      float bordxi = p.left - raio;   
+      float bordy = p.top - raio;   
+      if(x > bordxi && x < bordxf && y > bordy){
+	if (py < bordy){
+	  vy = -vy; 
+	}
+	if (px < bordxi || px > bordxf) {   
+	  vx = -vx; 
+	}
+      }
+    }
+           
+    if(y < raio) {
+      vy = -vy;
+      y = raio;
+    }
+    else if(y > altura - raio) {
+      vy = -vy;
+      y = altura - raio;
+    } 
+    bigness = lifetime/50;
+    lifetime -= 1;
+    px = x;
+    py = y;  
+  }
+  void display() {
+    noStroke();
+    ellipseMode(CENTER);
+    fill(cor,255/1000.*lifetime);
+    ellipse(x,y,bigness,bigness);
+  }
+  boolean isDead() {
+    return (lifetime < 0);
+  }
+}

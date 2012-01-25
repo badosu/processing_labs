@@ -1,0 +1,56 @@
+ArrayList balls;
+int pSecond;
+float friction = 1.01;
+int bodyPosX = 0;
+int bodyPosY = 0;
+ 
+boolean lmousePressed = false;
+boolean rmousePressed = false;
+
+
+function setPosValues(e){
+  bodyPosX = e.clientX;
+  bodyPosY = e.clientY;
+}
+
+void setup(){
+  size(window.innerWidth, window.innerHeight);
+  document.body.addEventListener("mousemove", setPosValues, true);
+  document.body.addEventListener("mousedown", function (e) {
+  	lmousePressed = (e.button==0||e.which==1);
+	rmousePressed = (e.button==2||e.which==3);
+	}, true);
+  document.body.addEventListener("mouseup", function(e){
+  	lmousePressed = false;
+	rmousePressed = false;
+  }, true);  
+  frameRate(30);
+  balls = new ArrayList();
+  pSecond = second();
+}
+
+void draw(){
+  background(255);
+  
+  for(int i = balls.size()-1;i >= 0;i--){
+    Ball ball = (Ball) balls.get(i);
+    ball.display();
+    ball.update(friction);
+    
+    if(ball.isDead()){
+      balls.remove(i);
+    }
+  }
+  if (rmousePressed) {
+  	balls.add(new Ball());
+  }
+  else if (second() - pSecond != 0){
+    balls.add(new Ball());
+    pSecond = second();
+  }
+  showFPS(); 
+}
+
+void showFPS(){
+  document.getElementById("lblfps").innerHTML = "FPS: " + parseInt((frameRate)).toString();
+}

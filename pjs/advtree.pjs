@@ -1,0 +1,71 @@
+float curlx = 0;
+float curly = 0;
+float f = sqrt(2)/2.;
+float deley = 10;
+float growth = 0;
+float growthTarget = -4;
+int bodyPosX = 0;
+int bodyPosY = 0;
+
+function setPosValues(e){
+  bodyPosX = e.clientX;
+  bodyPosY = e.clientY;
+}
+
+void setup()
+{
+  size(window.innerWidth, window.innerHeight);
+  document.body.addEventListener("mousemove", setPosValues, true);
+  frameRate(30);
+  stroke(0);
+}
+
+void draw()
+{
+  background(255);
+  curlx += (radians(360./height*(bodyPosX))-curlx)/deley;
+  curly += (radians(360./height*(bodyPosY))-curly)/deley;
+  translate(width/2,height/3*2);
+  line(0,0,0,height/2);
+  branch(height/4.,17);
+  growth += (growthTarget/10-growth+1.)/deley;
+  showFPS();
+}
+
+void mouseScrolled() {
+  if (mouseScroll > 0) {
+    growthTarget++;
+  } else if (mouseScroll < 0) {
+    growthTarget--;
+  }
+}
+
+void showFPS()
+{
+	document.getElementById("lblfps").innerHTML = "FPS: " + parseInt((frameRate)).toString();
+}
+  
+void branch(float len, int num)
+{
+  len *= f;
+  num--;
+  
+  if((len > 1) && (num > 0))
+  {
+	
+    pushMatrix();
+    rotate(curlx);
+    line(0,0,0,-len);
+    translate(0,-len);
+    branch(len,num);
+    popMatrix();
+      
+    len *= growth;
+    pushMatrix();
+    rotate(curlx-curly);
+    line(0,0,0,-len);
+    translate(0,-len);
+    branch(len,num);
+    popMatrix();
+  }
+}

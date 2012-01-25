@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine|Old+Standard+TT" />
+        <script src="js/processing.js">
+        </script>
+        <script src="js/utils.js">
+        </script>
+        <title>Teste PJS</title>
+    </head>
+    <body>
+        <div class="corpo">
+            <h1>Teste</h1>
+            <input type="text" onkeypress="mascara(this, CEP)" />
+        </div>
+        <div class="mostrador">
+        	<label id="lblfps">
+        	</label>
+		</div>
+        <canvas id="fundo" data-processing-sources="pjs/teste.pjs">
+        </canvas>
+    </body>
+</html>

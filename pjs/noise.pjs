@@ -1,0 +1,56 @@
+float QUATRO_PI = 2*TWO_PI;
+float noisy = .007;
+int num = 256;
+PVector[] pos = new PVector[num];
+PVector[] ppos = new PVector[num];
+
+void setup(){
+  size(window.innerWidth, window.innerHeight);
+  document.body.addEventListener("mouseup", bodyMousePressed, true);
+  frameRate(30); 
+  smooth();
+  refresh();
+}
+
+void refresh(){
+  background(255);
+  changeColor(); 
+  for(int i = 0; i < num; i++){
+      pos[i] = new PVector(random(0, width), random(0, height));
+      ppos[i] = new PVector(pos[i].x, pos[i].y); 
+  } 
+  noiseDetail(14);
+}
+
+void changeColor(){
+  stroke(random(255), random(255), random(255), 20);
+}
+
+void draw() {
+  for(int i = 0; i < num; i++) {
+    if(pos[i].x < 0 || pos[i].y < 0 || pos[i].x > width || pos[i].y > height){
+      pos[i] = new PVector(random(0, width), random(0, height));
+      ppos[i] = new PVector(pos[i].x, pos[i].y); 
+    }
+    else{  
+      line(ppos[i].x, ppos[i].y, pos[i].x, pos[i].y); 
+      float px = pos[i].x*.007;
+      float py = pos[i].y*.007;
+      float arg = QUATRO_PI*noise(px, py, noisy*.5); 
+      float k = 8*noise(200+px, 200+py, noisy*2); 
+      ppos[i] = new PVector(pos[i].x, pos[i].y); 
+      pos[i].add(new PVector(k*cos(arg), k*sin(arg)));
+    }
+  }
+  noisy += .007;
+  showFPS(); 
+}
+void showFPS(){
+  document.getElementById("lblfps").innerHTML = "FPS: " + parseInt((frameRate)).toString();
+}
+function bodyMousePressed(e){
+  changeColor();
+  if (e.button==1 || e.which==2){
+    refresh();
+  }
+}
